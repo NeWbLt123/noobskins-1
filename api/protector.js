@@ -6,12 +6,11 @@ module.exports = function(req, res, next) {
 
   // decode token
   if (token) {
-
     // verifies secret and checks exp
-    jwt.verify(token, req.app.get("superSecret"), function(err, decoded) {      
+    jwt.verify(token, req.app.get("superSecret"), function(err, decoded) {
       if (err) {
         console.log(err);
-        return res.json({ success: false, message: 'Failed to authenticate token.' });    
+        return res.json({ success: false, message: 'Failed to authenticate token.' });
       } else {
         // if everything is good, save to request for use in other routes
         req.decoded = decoded;
@@ -23,10 +22,10 @@ module.exports = function(req, res, next) {
 
     // if there is no token
     // return an error
-    return res.status(403).send({ 
-        success: false, 
-        message: 'No token provided.' 
+    return res.status(403).send({
+        success: false,
+        message: 'No token provided.'
     });
-    
+
   }
 }
