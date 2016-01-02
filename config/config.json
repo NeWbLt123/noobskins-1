@@ -17,7 +17,7 @@
     "username": "kqevxkoevyanlb",
     "password": "KCIZcKzI66_DjfjILgoiEJCDIA",
     "database": "decobdkmtnosd4",
-    "host": "127.0.0.1",
+    "host": "ec2-54-204-8-138.compute-1.amazonaws.com",
     "dialect": "postgres"
   }
 }
