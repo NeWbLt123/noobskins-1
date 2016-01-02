@@ -5,11 +5,12 @@ var openid = require("openid");
 var router = express.Router();
 var jwt = require("jsonwebtoken");
 
-module.exports = function(userHelper) {
+module.exports = function(userHelper, host) {
+  console.log(host);
   router.get("/", function(req, res) {
       var relyingParty = new openid.RelyingParty(
-        "http://localhost:8080/api/auth/steam/verify?returnUrl=" + req.query.returnUrl,
-        "http://localhost:8080",
+        host + "/api/auth/steam/verify?returnUrl=" + req.query.returnUrl,
+        host,
         true, // stateless
         false,
         []
@@ -26,8 +27,8 @@ module.exports = function(userHelper) {
 
   router.get("/verify", function(req, res) {
       var relyingParty = new openid.RelyingParty(
-        "http://localhost:8080/api/auth/steam/verify",
-        "http://localhost:8080",
+        host + "/api/auth/steam/verify",
+        host,
         true, // stateless
         false,
         []

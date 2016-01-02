@@ -8,5 +8,13 @@ module.exports = {
     },
     "authentication": {
     	"secret": "bananaSecret"
+    },
+    "host": {
+      "development": {
+        "host": "http://localhost:8080"
+      },
+      "production": {
+        "host": "https://noobskins-2.herokuapp.com"
+      }
     }
 };

@@ -11,6 +11,7 @@ var cors       = require("cors");
 
 var port = process.env.PORT || 8080;        // set our port
 var config = require('./config');
+var env = process.env.NODE_ENV || 'development'
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -38,7 +39,7 @@ var userHelper = require("./models/helpers/user.js")(models.User);
 // =============================================================================
 
 // authentication api
-app.use('/api/auth/steam', require("./api/authenticate")(userHelper));
+app.use('/api/auth/steam', require("./api/authenticate")(userHelper, config.host[env].host));
 
 // Add headers
 app.use(function (req, res, next) {
