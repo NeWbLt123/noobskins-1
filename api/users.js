@@ -12,6 +12,22 @@ module.exports = function(model) {
         });
     });
 
+    router.get("/my", function(req, res) {
+        var steamid = req.decoded.user.steamid;
+
+        if (steamid) {
+            model.getBySteamId(steamid)
+            .then(function(user) {
+                res.send(user);
+            }, function(err) {
+                res.send(err);
+            });
+        } else {
+            res.send(500, "An error occured.");
+        }
+
+    });
+
     router.post("/search", function(req, res) {
         if (req.body.steamId) {
             model.getBySteamId(req.body.steamId)
