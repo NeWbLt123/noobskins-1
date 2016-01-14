@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 var jwt        = require("jsonwebtoken");
 var morgan     = require("morgan");
 var cors       = require("cors");
-var cookieParser = require('cookie-parser');
 
 var port = process.env.PORT || 8080;        // set our port
 var config = require('./config');
@@ -18,7 +17,6 @@ var env = process.env.NODE_ENV || 'development'
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cookieParser());
 
 // use morgan to log requests to the console
 app.use(morgan("dev"));
