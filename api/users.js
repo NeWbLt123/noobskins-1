@@ -18,7 +18,7 @@ module.exports = function(model) {
         if (steamid) {
             model.getBySteamId(steamid)
             .then(function(user) {
-                res.send(user);
+                res.send({"success" : true, "response": user});
             }, function(err) {
                 res.send(err);
             });
