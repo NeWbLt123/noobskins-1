@@ -9,6 +9,9 @@ module.exports = {
     "authentication": {
     	"secret": "bananaSecret"
     },
+    "steam": {
+      "apiKey": "9A7FDCB2502234CC8844096683E583BA"
+    },
     "host": {
       "development": {
         "host": "http://localhost:8080"

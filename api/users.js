@@ -1,4 +1,5 @@
 var express = require("express");
+var Promise = require('bluebird');
 
 module.exports = function(model) {
     var router = express.Router();
@@ -16,12 +17,12 @@ module.exports = function(model) {
         var steamid = req.decoded.user.steamid;
 
         if (steamid) {
-            model.getBySteamId(steamid)
-            .then(function(user) {
-                res.send({"success" : true, "response": user});
-            }, function(err) {
-                res.send(err);
-            });
+          Promise.join(model.getBySteamId(steamid), model.getPlayerInformation(steamid), function(user, steamInfo) {
+            var userInfo = {};
+            userInfo.user = user;
+            userInfo.steamInfo = steamInfo;
+            res.send({"success" : true, "response": userInfo});
+          });
         } else {
             res.send(500, "An error occured.");
         }

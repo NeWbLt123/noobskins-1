@@ -6,7 +6,6 @@ var router = express.Router();
 var jwt = require("jsonwebtoken");
 
 module.exports = function(userHelper, host) {
-  console.log(host);
   router.get("/", function(req, res) {
       var relyingParty = new openid.RelyingParty(
         host + "/api/auth/steam/verify?returnUrl=" + req.query.returnUrl,
@@ -48,7 +47,6 @@ module.exports = function(userHelper, host) {
         })
 
         .then(function(user) {
-
           // create an authorization token
           var token = jwt.sign({user: user}, req.app.get("superSecret"), {
             expiresIn: "24h"

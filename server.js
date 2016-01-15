@@ -26,6 +26,10 @@ app.use(cors());
 // our secret to encode and decode authentication tokens
 app.set("superSecret", config.authentication.secret);
 
+// SERVICES
+// =============================================================================
+var steamService = require('./services/steam.js')(config.steam.apiKey);
+
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
@@ -33,7 +37,7 @@ var router = express.Router();              // get an instance of the express Ro
 // MODELS
 // =============================================================================
 var models = require("./models");
-var userHelper = require("./models/helpers/user.js")(models.User);
+var userHelper = require("./models/helpers/user.js")(models.User, steamService);
 
 // REGISTER OUR ROUTES -------------------------------
 // =============================================================================
