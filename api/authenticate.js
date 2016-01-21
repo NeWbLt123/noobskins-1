@@ -5,7 +5,7 @@ var openid = require("openid");
 var router = express.Router();
 var jwt = require("jsonwebtoken");
 
-module.exports = function(userHelper, host) {
+module.exports = function(userHelper, host, cookieDomain) {
   router.get("/", function(req, res) {
       var relyingParty = new openid.RelyingParty(
         host + "/api/auth/steam/verify?returnUrl=" + req.query.returnUrl,
@@ -52,8 +52,8 @@ module.exports = function(userHelper, host) {
             expiresIn: "24h"
           });
 
-        res.cookie('apiToken', token, {domain: 'noobskins.com'});
-        res.redirect(req.query.returnUrl);
+          res.cookie('apiToken', token, {domain: cookieDomain});
+          res.redirect(req.query.returnUrl);
 
         }, function(err) {
           res.writeHead(500);

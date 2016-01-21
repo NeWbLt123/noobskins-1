@@ -43,7 +43,7 @@ var userHelper = require("./models/helpers/user.js")(models.User, steamService);
 // =============================================================================
 
 // authentication api
-app.use('/api/auth/steam', require("./api/authenticate")(userHelper, config.host[env].host));
+app.use('/api/auth/steam', require("./api/authenticate")(userHelper, config.host[env].host, config.host[env].cookieDomain));
 
 // Add headers
 app.use(function (req, res, next) {

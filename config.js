@@ -14,10 +14,12 @@ module.exports = {
     },
     "host": {
       "development": {
-        "host": "http://localhost:8080"
+        "host": "http://localhost:8080",
+        "cookieDomain": ""
       },
       "production": {
-        "host": "http://api.noobskins.com"
+        "host": "http://api.noobskins.com",
+        "cookieDomain": "noobskins.com"
       }
     }
 };
