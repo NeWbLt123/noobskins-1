@@ -17,7 +17,7 @@ module.exports = {
         "host": "http://localhost:8080"
       },
       "production": {
-        "host": "https://noobskins-2.herokuapp.com"
+        "host": "http://api.noobskins.com"
       }
     }
 };
