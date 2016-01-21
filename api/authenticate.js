@@ -52,7 +52,7 @@ module.exports = function(userHelper, host) {
             expiresIn: "24h"
           });
 
-        res.cookie('apiToken', token, {domain: 'www.noobskins.com'});
+        res.cookie('apiToken', token, {domain: 'noobskins.com'});
         res.redirect(req.query.returnUrl);
 
         }, function(err) {
