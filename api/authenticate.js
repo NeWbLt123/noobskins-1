@@ -52,7 +52,10 @@ module.exports = function(userHelper, host) {
             expiresIn: "24h"
           });
 
-        res.redirect(req.query.returnUrl + "?token=" + token);
+        res.cookie('apiToken', token);
+        res.redirect(req.query.returnUrl);
+        // res.redirect('/');
+        // res.redirect(req.query.returnUrl + "?token=" + token);
 
         }, function(err) {
           res.writeHead(500);
