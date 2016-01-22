@@ -21,7 +21,9 @@ app.use(bodyParser.json());
 // use morgan to log requests to the console
 app.use(morgan("dev"));
 
-app.use(cors());
+if (env === 'development' ) {
+  app.use(cors());
+}
 
 // our secret to encode and decode authentication tokens
 app.set("superSecret", config.authentication.secret);
@@ -49,7 +51,9 @@ app.use('/api/auth/steam', require("./api/authenticate")(userHelper, config.host
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    if (env === 'development') {
+      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    }
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', '*');
