@@ -15,11 +15,13 @@ module.exports = {
     "host": {
       "development": {
         "host": "http://localhost:8080",
-        "cookieDomain": ""
+        "cookieDomain": "",
+        "cors": "http://localhost:3000"
       },
       "production": {
         "host": "http://api.noobskins.com",
-        "cookieDomain": "noobskins.com"
+        "cookieDomain": "noobskins.com",
+        "cors": "noobskins.com"
       }
     }
 };
