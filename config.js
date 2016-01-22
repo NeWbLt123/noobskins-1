@@ -21,7 +21,7 @@ module.exports = {
       "production": {
         "host": "http://api.noobskins.com",
         "cookieDomain": "noobskins.com",
-        "cors": "noobskins.com"
+        "cors": "http://www.noobskins.com"
       }
     }
 };
