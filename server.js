@@ -23,6 +23,26 @@ app.use(morgan("dev"));
 
 app.use(cors());
 
+// Add headers
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', config.host[env].cors);
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', '*');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', '*');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    // res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
+
 // our secret to encode and decode authentication tokens
 app.set("superSecret", config.authentication.secret);
 
@@ -45,31 +65,12 @@ var userHelper = require("./models/helpers/user.js")(models.User, steamService);
 // authentication api
 app.use('/api/auth/steam', require("./api/authenticate")(userHelper, config.host[env].host, config.host[env].cookieDomain));
 
-// Add headers
-app.use(function (req, res, next) {
-
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', config.host[env].cors);
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', '*');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', '*');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    // res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
-
 // authorization middleware (will not allow any of the following apis if a token is not provided)
 app.use(require("./api/protector"));
 
 // users api
 app.use("/api/users", require("./api/users")(userHelper));
+app.use("/api/steam", require("./api/steam")(steamService));
 
 // START THE SERVER
 // =============================================================================

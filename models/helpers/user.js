@@ -1,3 +1,5 @@
+var Promise = require('bluebird');
+
 module.exports = function(model, steamService) {
 	function _create(email, firstname, lastname, steamid, steamtradeurl) {
 		return model.create({
@@ -10,24 +12,36 @@ module.exports = function(model, steamService) {
 		});
 	}
 
-	function _getBySteamId(steamId) {
+	function _getBySteamId(steamid) {
 		return model.findOne({
       where: {
-          steamid: steamId
+          steamid: steamid
       }
 	  });
 	}
 
-	function _getPlayerInformation(steamId) {
+	function _getPlayerInformation(steamid) {
 		return new Promise(function(resolve, reject) {
-			steamService.getPlayerInformation(steamId)
+			steamService.getPlayerInformation(steamid)
 			.then(function(data) {
-				console.log(JSON.stringify(data));
 				var player = data.response.players[0];
 				resolve({
 					name: player.personaname,
 					avatar: player.avatarfull,
+					steamid: steamid,
 				});
+			});
+		});
+	}
+
+	function _getPlayerItems(steamid) {
+		return new Promise(function(resolve, reject) {
+			steamService.getPlayerItems(steamid)
+			.then(function(data) {
+					resolve(data);
+			})
+			.catch(function(err) {
+				reject(err);
 			});
 		});
 	}
@@ -35,6 +49,7 @@ module.exports = function(model, steamService) {
 	return {
 		create: _create,
 		getBySteamId: _getBySteamId,
-		getPlayerInformation: _getPlayerInformation
+		getPlayerInformation: _getPlayerInformation,
+		getPlayerItems: _getPlayerItems
 	}
 }

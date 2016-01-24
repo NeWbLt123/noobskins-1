@@ -26,7 +26,22 @@ module.exports = function(model) {
         } else {
             res.send(500, "An error occured.");
         }
+    });
 
+    router.get("/my/items", function(req, res) {
+      var steamid = req.decoded.user.steamid;
+
+      if (steamid) {
+        model.getPlayerItems(steamid)
+        .then(function(data) {
+          res.send({"success": true, "response": data});
+        })
+        .catch(function(err) {
+          res.send(500, err);
+        });
+      } else {
+        res.send(500, "An error occured.");
+      }
     });
 
     router.post("/search", function(req, res) {
