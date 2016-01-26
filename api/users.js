@@ -17,11 +17,14 @@ module.exports = function(model) {
         var steamid = req.decoded.user.steamid;
 
         if (steamid) {
-          Promise.join(model.getBySteamId(steamid), model.getPlayerInformation(steamid), function(user, steamInfo) {
-            var userInfo = {};
-            userInfo.user = user;
-            userInfo.steamInfo = steamInfo;
-            res.send({"success" : true, "response": userInfo});
+          return new Promise(function(resolve, reject) {
+            model.getBySteamId(steamid)
+            .then(function(user) {
+              res.send({"success": true, "response": user});
+            })
+            .catch(function(err) {
+              res.send({"success": false, "response": err});
+            });
           });
         } else {
             res.send(500, "An error occured.");

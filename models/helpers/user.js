@@ -20,20 +20,6 @@ module.exports = function(model, steamService) {
 	  });
 	}
 
-	function _getPlayerInformation(steamid) {
-		return new Promise(function(resolve, reject) {
-			steamService.getPlayerInformation(steamid)
-			.then(function(data) {
-				var player = data.response.players[0];
-				resolve({
-					name: player.personaname,
-					avatar: player.avatarfull,
-					steamid: steamid,
-				});
-			});
-		});
-	}
-
 	function _getPlayerItems(steamid) {
 		return new Promise(function(resolve, reject) {
 			steamService.getPlayerItems(steamid)
@@ -49,7 +35,6 @@ module.exports = function(model, steamService) {
 	return {
 		create: _create,
 		getBySteamId: _getBySteamId,
-		getPlayerInformation: _getPlayerInformation,
 		getPlayerItems: _getPlayerItems
 	}
 }
